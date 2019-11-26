@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/babylon.js"></script>
+    <style>
+        body{
+            width:100%;
+            height:100%;
+        }
+        #renderCanvas{
+            width:100%;
+            height:500px;
+            position:relative;
+        }
+        #doc{
+            width:100%;
+        }
+        #doc pre,#doc code{
+            font-size:12px;
+        }
+
+    
+    </style>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+<pre>
+    var plane = BABYLON.MeshBuilder.CreatePlane("plane", {height:3, width: 3, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+
+</pre>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+
+var init = ()=> {
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas');
+    console.log(canvas)
+    // Load the 3D engine
+    var engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    var scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    var camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+
+    var plane = BABYLON.MeshBuilder.CreatePlane("plane", {height:3, width: 3, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+init();
+
+
+
+</script>
+</html>
