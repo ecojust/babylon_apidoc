@@ -2,11 +2,18 @@
 .logo{
 	height:50px;
 	line-height: 50px;
-	color:white;
+	color:black;
 	text-align: left;
 	padding-bottom:5px;
 }
 .logo img{
 	width:30px;
 	margin:10px 20px;
+}
+.ant-menu-inline{
+	border-right:none;
+}
+.ant-menu-item{
+	height:22px !important;
+	line-height:22px !important;
 }

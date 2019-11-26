@@ -79,7 +79,7 @@ export class Frame extends MiddleComponent {
 		var menu = this.menuDom();
 		return withRouter(({history})=>{
 			return (
-				<Menu  theme="dark" mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['babylon','Geometries']}>
+				<Menu mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['babylon','Geometries']}>
 					{ menu }
 				</Menu>
 			)
@@ -113,29 +113,30 @@ export class Frame extends MiddleComponent {
     return (
     	<HashRouter>
 		<Layout>
-		    <Sider style={{
-			  overflow: 'auto', position: 'fixed', left: 0,width:200, height: this.state.height,
+		    <Sider theme="light" style={{
+			  overflow: 'auto',borderRight:'1px solid #e8e8e8', position: 'fixed', left: 0,width:200, height: this.state.height,
 			//   display:'none'
 		    }}
 		    >
-			    <Scrollbars style={{ width:'100%', height: '100%' }}>
-			      <div className="logo">
+				<div className="logo">
 			      	<img alt="logo" src={ orange }></img>
 			      	桔子桑
 			      </div>
+			    <Scrollbars style={{ width:'100%', height: 'calc(100% - 60px)' }}>
+			      
 			      <SideMenu />
 			    </Scrollbars>
 		    </Sider>
 		    <Layout style={{ marginLeft: 200 }}>
-		      <Header style={{ background: '#fff',height:60,padding:'0 20px' }}>
+		      <Header style={{ background: '#fff',height:60,padding:'0 20px',borderBottom:'1px solid #e8e8e8' }}>
 		       <h4>{ this.state.title }</h4>
 		      </Header>
-		      <Content style={{ padding:'0px 200px',height:this.state.height - 144,width:this.state.width - 210 }}>
+		      <Content style={{ padding:'0px 200px',height:this.state.height - 120,width:this.state.width - 210 }}>
 			      <div style={{height:'100%', width:'100%'}}>
 			      	<Router />
 		          </div>
 		      </Content>
-		      <Footer style={{ textAlign: 'center',height:60 }}>
+		      <Footer style={{ textAlign: 'center',height:60,borderTop:'1px solid #e8e8e8',background: '#fff' }}>
 		        CopyRight ©2019 桔子桑
 		      </Footer>
 		    </Layout>
