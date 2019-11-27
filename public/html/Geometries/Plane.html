@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/public.css">
+    <script src="../../lib/babylon.js"></script>
+    <script src="../../lib/initAxis.js"></script>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+    <pre>
+        var plane = BABYLON.MeshBuilder.CreatePlane("plane", {
+            size:4,
+            sideOrientation: BABYLON.Mesh.DOUBLESIDE
+        }, scene);
+    </pre>
+    <div class="params">
+        <div class="title">
+            参数说明(options):
+        </div>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>意义</th>
+                <th>默认值</th>
+            </tr>
+            <tr>
+                <td>size</td>
+                <td>尺寸(同时适用于width,height)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>height</td>
+                <td>高度(number)</td>
+                <td>size</td>
+            </tr>
+            <tr>
+                <td>width</td>
+                <td>宽度(number)</td>
+                <td>size</td>
+            </tr>
+            <tr>
+                <td>updatable</td>
+                <td>网格是否可更新(boolean)</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td>sideOrientation</td>
+                <td>物体可见区域(可选值:BABYLON.Mesh.FRONTSIDE、BABYLON.Mesh.BACKSIDE、BABYLON.Mesh.DOUBLESIDE、BABYLON.Mesh.DEFAULT)</td>
+                <td>BABYLON.Mesh.DEFAULTSIDE</td>
+            </tr>
+            <tr>
+                <td>frontUVs</td>
+                <td>正面UV映射(vec4)</td>
+                <td>Vector4（0,0,1,1）</td>
+            </tr>
+            <tr>
+                <td>backUVs</td>
+                <td>反面UV映射(vec4)</td>
+                <td>Vector4（0,0,1,1）</td>
+            </tr>
+        </table>
+        <div class="warning">
+            注意事项:
+        </div>
+        <div class="things">
+            <div class="thing">1.当size参数和height/width同时存在时,后者起决定性作用;</div>
+            <div class="thing">2.plane默认垂直于x-z平面,ground默认垂直于x-y平面;</div>
+            <div class="thing">3.<b>BABYLON.MeshBuilder.CreatePlane</b> 和 <b>BABYLON.Mesh.CreatePlane</b>是有区别的,MeshBuilder才能接受一个object作为options构建mesh;</div>
+        </div>
+    </div>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+
+var engine,scene,camera;
+
+var init = ()=> {
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas');
+    // Load the 3D engine
+    engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+    initAxis(3,scene);
+    adddemo();
+    
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+
+var adddemo = ()=>{
+    var plane = BABYLON.MeshBuilder.CreatePlane("plane", {
+        size:4,
+        sideOrientation: BABYLON.Mesh.DOUBLESIDE
+    }, scene);
+}
+
+init();
+
+
+
+</script>
+</html>

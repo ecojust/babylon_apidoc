@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/public.css">
+    <script src="../../lib/babylon.js"></script>
+    <script src="../../lib/initAxis.js"></script>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+    <pre>
+        const points = [
+            BABYLON.Vector3.Zero(),
+            new BABYLON.Vector3(5, 2, -3),
+            new BABYLON.Vector3(-5,2,-3),
+            new BABYLON.Vector3(-5, -2, 3),
+            new BABYLON.Vector3(2,3,3)
+        ];
+        var line = BABYLON.MeshBuilder.CreateDashedLines("line",{
+            points:points,
+            dashNb:100,
+            dashSize:2,
+            gapSize:2
+        }, scene);
+    </pre>
+    <div class="params">
+        <div class="title">
+            参数说明(options):
+        </div>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>意义</th>
+                <th>默认值</th>
+            </tr>
+            <tr>
+                <td>points</td>
+                <td>构成虚线段的点数组(vec3[])</td>
+                <td>null</td>
+            </tr>
+            <tr>
+                <td>dashSize</td>
+                <td>实线部分长度(number)</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>dashNb</td>
+                <td>实线部分个数(number)</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>gapSize</td>
+                <td>间隔部分长度(number)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>updatable</td>
+                <td>是否可更新(boolean)</td>
+                <td>false</td>
+            </tr>
+            
+        </table>
+        <div class="warning">
+            注意事项:
+        </div>
+        <div class="things">
+            <div class="thing">1.虚线没有颜色参数可以用于设置</div>
+        </div>
+
+    </div>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+var engine,scene,camera;
+
+var init = ()=> {
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas');
+    // Load the 3D engine
+    engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+    initAxis(3,scene);
+    adddemo();
+
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+
+
+var adddemo = ()=>{
+    const points = [
+        BABYLON.Vector3.Zero(),
+        new BABYLON.Vector3(5, 2, -3),
+        new BABYLON.Vector3(-5,2,-3),
+        new BABYLON.Vector3(-5, -2, 3),
+        new BABYLON.Vector3(2,3,3)
+    ];
+    var line = BABYLON.MeshBuilder.CreateDashedLines("line",{
+        points:points,
+        dashNb:100,
+        dashSize:2,
+        gapSize:2
+    }, scene);
+}
+
+init();
+
+
+
+</script>
+</html>

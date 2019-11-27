@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/public.css">
+    <script src="../../lib/babylon.js"></script>
+    <script src="../../lib/initAxis.js"></script>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+    <pre>
+        var faceColors = [];
+        for(var i =0;i<6;i++){
+            faceColors.push(new BABYLON.Color4(Math.random(), Math.random(),Math.random()));
+        };
+        var Box = BABYLON.MeshBuilder.CreateBox("Box",{
+            size:2,
+            faceColors:faceColors
+        }, scene);
+    </pre>
+    <div class="params">
+        <div class="title">
+            参数说明(options):
+        </div>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>意义</th>
+                <th>默认值</th>
+            </tr>
+            <tr>
+                <td>size</td>
+                <td>尺寸(同时适用于width,height,depth)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>height</td>
+                <td>高度(number)</td>
+                <td>size</td>
+            </tr>
+            <tr>
+                <td>width</td>
+                <td>宽度(number)</td>
+                <td>size</td>
+            </tr>
+            <tr>
+                <td>depth</td>
+                <td>深度(number)</td>
+                <td>size</td>
+            </tr>
+            <tr>
+                <td>faceColors</td>
+                <td>6个面的颜色数组(Color4[])</td>
+                <td>每个面默认Color4(1,1,1,1)</td>
+            </tr>
+            <tr>
+                <td>faceUV</td>
+                <td>6个面的uv映射数组(vec4[])</td>
+                <td>每个面默认vec4(0,0,1,1)</td>
+            </tr>
+            <tr>
+                <td>sideOrientation</td>
+                <td>物体可见区域(可选值:BABYLON.Mesh.FRONTSIDE、BABYLON.Mesh.BACKSIDE、BABYLON.Mesh.DOUBLESIDE、BABYLON.Mesh.DEFAULT)</td>
+                <td>BABYLON.Mesh.DEFAULTSIDE</td>
+            </tr>
+            <tr>
+                <td>updatable</td>
+                <td>网格是否可更新(boolean)</td>
+                <td>false</td>
+            </tr>
+        </table>
+        <div class="warning">
+            注意事项:
+        </div>
+        <div class="things">
+            <!-- <div class="thing">1.单独设置size参数,ground大小并未改变(是否是bug待验证)</div> -->
+        </div>
+
+    </div>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+var engine,scene,camera;
+
+var init = ()=> {
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas');
+    // Load the 3D engine
+    engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+    initAxis(3,scene);
+    adddemo();
+
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+
+
+var adddemo = ()=>{
+    var faceColors = [];
+    for(var i =0;i<6;i++){
+        faceColors.push(new BABYLON.Color4(Math.random(), Math.random(),Math.random()));
+    }
+    var Box = BABYLON.MeshBuilder.CreateBox("Box",{
+        size:2,
+        faceColors:faceColors
+    }, scene);
+}
+
+init();
+
+
+
+</script>
+</html>

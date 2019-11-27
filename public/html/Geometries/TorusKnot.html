@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/public.css">
+    <script src="../../lib/babylon.js"></script>
+    <script src="../../lib/initAxis.js"></script>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+    <pre>
+        var TorusKnot = BABYLON.MeshBuilder.CreateTorusKnot("TorusKnot",{
+            sideOrientation:BABYLON.Mesh.DOUBLESIDE,
+            radius:1.5,
+            tube:0.3,
+            radialSegments:300,
+        }, scene);
+        TorusKnot.position.x = -3;
+        var TorusKnot2 = BABYLON.MeshBuilder.CreateTorusKnot("TorusKnot2",{
+            sideOrientation:BABYLON.Mesh.DOUBLESIDE,
+            radius:1,
+            tube:0.2,
+            radialSegments:30,
+        }, scene);
+        TorusKnot2.position.x = 3;
+    </pre>
+    <div class="params">
+        <div class="title">
+            参数说明(options):
+        </div>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>意义</th>
+                <th>默认值</th>
+            </tr>
+            <tr>
+                <td>redius</td>
+                <td>Mesh直径(number)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>tube</td>
+                <td>圆环直径(number)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>radialSegments</td>
+                <td>圆环横向细分(number)</td>
+                <td>64</td>
+            </tr>
+            <tr>
+                <td>tubularSegments</td>
+                <td>圆环纵向细分(number)</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>p</td>
+                <td>y轴复杂度(number)</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>q</td>
+                <td>x轴复杂度(number)</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>frontUVs</td>
+                <td>正面UV映射(vec4)</td>
+                <td>Vector4（0,0,1,1）</td>
+            </tr>
+            <tr>
+                <td>backUVs</td>
+                <td>反面UV映射(vec4)</td>
+                <td>Vector4（0,0,1,1）</td>
+            </tr>
+            <tr>
+                <td>updatable</td>
+                <td>是否可更新(boolean)</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td>sideOrientation</td>
+                <td>物体可见区域(可选值:BABYLON.Mesh.FRONTSIDE、BABYLON.Mesh.BACKSIDE、BABYLON.Mesh.DOUBLESIDE、BABYLON.Mesh.DEFAULT)</td>
+                <td>BABYLON.Mesh.DEFAULTSIDE</td>
+            </tr>
+        </table>
+        <div class="warning">
+            注意事项:
+        </div>
+        <div class="things">
+            <!-- <div class="thing">1.Color4的第四个分量(alpha通道值)可以不填,默认是1.0;</div> -->
+        </div>
+
+    </div>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+var engine,scene,camera;
+
+var init = ()=> {
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas');
+    // Load the 3D engine
+    engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+    initAxis(3,scene);
+    adddemo();
+
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+
+
+var adddemo = ()=>{
+    var TorusKnot = BABYLON.MeshBuilder.CreateTorusKnot("TorusKnot",{
+        sideOrientation:BABYLON.Mesh.DOUBLESIDE,
+        radius:1.5,
+        tube:0.3,
+        radialSegments:300,
+    }, scene);
+    TorusKnot.position.x = -3;
+    var TorusKnot2 = BABYLON.MeshBuilder.CreateTorusKnot("TorusKnot2",{
+        sideOrientation:BABYLON.Mesh.DOUBLESIDE,
+        radius:1,
+        tube:0.2,
+        radialSegments:30,
+    }, scene);
+    TorusKnot2.position.x = 3;
+}
+
+init();
+
+
+
+</script>
+</html>

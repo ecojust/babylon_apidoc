@@ -37,9 +37,54 @@ export class Frame extends MiddleComponent {
 				title:'Geometries',
 				children:[
 					{
+						title:'Lines',
+						to:'/Lines',
+						desc:'线段'
+					},
+					{
+						title:'DashedLines',
+						to:'/DashedLines',
+						desc:'虚线段'
+					},
+					{
 						title:'Plane',
-						to:'/plane',
-						desc:'plane'
+						to:'/Plane',
+						desc:'平面'
+					},
+					{
+						title:'Ground',
+						to:'/Ground',
+						desc:'地面'
+					},
+					{
+						title:'Box',
+						to:'/Box',
+						desc:'立方体'
+					},
+					{
+						title:'Sphere',
+						to:'/Sphere',
+						desc:'球体'
+					},
+					{
+						title:'Disc',
+						to:'/Disc',
+						desc:'正多边形面'
+					},
+					{
+						title:'Cylinder',
+						to:'/Cylinder',
+						desc:'棱柱体'
+					},
+					{
+						title:'Torus',
+						to:'/Torus',
+						desc:'圆环'
+					},
+					{
+						title:'TorusKnot',
+						to:'/TorusKnot',
+						desc:'圆环'
 					}
 				]
 			},
@@ -120,7 +165,7 @@ export class Frame extends MiddleComponent {
 		    >
 				<div className="logo">
 			      	<img alt="logo" src={ orange }></img>
-			      	桔子桑
+			      	babylon
 			      </div>
 			    <Scrollbars style={{ width:'100%', height: 'calc(100% - 60px)' }}>
 			      

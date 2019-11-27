@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/public.css">
+    <script src="../../lib/babylon.js"></script>
+    <script src="../../lib/initAxis.js"></script>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+    <pre>
+        var Sphere = BABYLON.MeshBuilder.CreateSphere("Sphere",{
+            diameter: 2, 
+            diameterX: 3
+        }, scene);
+    </pre>
+    <div class="params">
+        <div class="title">
+            参数说明(options):
+        </div>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>意义</th>
+                <th>默认值</th>
+            </tr>
+            <tr>
+                <td>segments</td>
+                <td>水平分段数(number)</td>
+                <td>32</td>
+            </tr>
+            <tr>
+                <td>diameter</td>
+                <td>球体直径(number)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>diameterX</td>
+                <td>X轴上的球的直径(number)</td>
+                <td>diameter</td>
+            </tr>
+            <tr>
+                <td>diameterY</td>
+                <td>Y轴上的球的直径(number)</td>
+                <td>diameter</td>
+            </tr>
+            <tr>
+                <td>diameterZ</td>
+                <td>Z轴上的球的直径(number)</td>
+                <td>diameter</td>
+            </tr>
+            <tr>
+                <td>arc</td>
+                <td>沿纬度线显示区域,值介于0到1(number)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>slice</td>
+                <td>沿经度线显示区域,值介于0到1(number)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>sideOrientation</td>
+                <td>物体可见区域(可选值:BABYLON.Mesh.FRONTSIDE、BABYLON.Mesh.BACKSIDE、BABYLON.Mesh.DOUBLESIDE、BABYLON.Mesh.DEFAULT)</td>
+                <td>BABYLON.Mesh.DEFAULTSIDE</td>
+            </tr>
+            <tr>
+                <td>updatable</td>
+                <td>网格是否可更新(boolean)</td>
+                <td>false</td>
+            </tr>
+        </table>
+        <div class="warning">
+            注意事项:
+        </div>
+        <div class="things">
+            <div class="thing">1.diameter 与 diameterX/diameterY/diameterZ 参数共存,各轴上直径以后者为主;</div>
+        </div>
+
+    </div>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+var engine,scene,camera;
+
+var init = ()=> {
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas');
+    // Load the 3D engine
+    engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+    initAxis(3,scene);
+    adddemo();
+
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+
+
+var adddemo = ()=>{
+    var Sphere = BABYLON.MeshBuilder.CreateSphere("Sphere",{
+        diameter: 2, 
+        diameterX: 3
+    }, scene);
+}
+
+init();
+
+
+
+</script>
+</html>

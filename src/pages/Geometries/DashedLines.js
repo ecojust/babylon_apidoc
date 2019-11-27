@@ -2,7 +2,7 @@ import {MiddleComponent,React} from '../../utils/MiddleComponent'
 // import * as BABYLON from 'babylonjs';
 
 
-export class Plane extends MiddleComponent {
+export class DashedLines extends MiddleComponent {
 	constructor(props){
 		super(props);
 	}
@@ -10,7 +10,7 @@ export class Plane extends MiddleComponent {
 
   render() {
     return (
-        <iframe title="load" src="/html/Geometries/Plane.html" frameBorder="none" style={{width:'100%',height:'100%'}} />
+        <iframe title="load" src="/html/Geometries/DashedLines.html" frameBorder="none" style={{width:'100%',height:'100%'}} />
     );
   }
 
