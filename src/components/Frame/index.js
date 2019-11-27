@@ -84,7 +84,12 @@ export class Frame extends MiddleComponent {
 					{
 						title:'TorusKnot',
 						to:'/TorusKnot',
-						desc:'圆环'
+						desc:'圆环结'
+					},
+					{
+						title:'IcoSphere',
+						to:'/IcoSphere',
+						desc:'多面体'
 					}
 				]
 			},

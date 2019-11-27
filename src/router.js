@@ -15,6 +15,8 @@ import {Disc} from './pages/Geometries/Disc'
 import {Cylinder} from './pages/Geometries/Cylinder'
 import {Torus} from './pages/Geometries/Torus'
 import {TorusKnot} from './pages/Geometries/TorusKnot'
+import {IcoSphere} from './pages/Geometries/IcoSphere'
+
 
 
 
@@ -45,6 +47,8 @@ const BasicRoute = () => (
         	<Route exact path="/Cylinder" component={Cylinder} />
         	<Route exact path="/Torus" component={Torus} />
         	<Route exact path="/TorusKnot" component={TorusKnot} />
+        	<Route exact path="/IcoSphere" component={IcoSphere} />
+
 
 
 
