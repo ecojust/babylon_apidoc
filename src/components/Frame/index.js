@@ -93,6 +93,16 @@ export class Frame extends MiddleComponent {
 					}
 				]
 			},
+			{
+				title:'Material',
+				children:[
+					{
+						title:'基础材质',
+						to:'/Material',
+						desc:'基础材质'
+					}
+				]
+			},
 		];
   		this.initHeightLight();
 	}
@@ -129,7 +139,7 @@ export class Frame extends MiddleComponent {
 		var menu = this.menuDom();
 		return withRouter(({history})=>{
 			return (
-				<Menu mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['babylon','Geometries']}>
+				<Menu mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['babylon','Geometries','Material']}>
 					{ menu }
 				</Menu>
 			)

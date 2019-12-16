@@ -1,3 +1,11 @@
+/* ============================================================================= 
+#
+# Author: 桔子桑
+# Date: 2019-11-27 10:37:27
+# FilePath: /babylon_apidoc/src/router.js
+# Description: 
+#
+============================================================================= */
 import React from 'react';
 import {HashRouter ,Route, Switch} from 'react-router-dom';
 
@@ -16,6 +24,11 @@ import {Cylinder} from './pages/Geometries/Cylinder'
 import {Torus} from './pages/Geometries/Torus'
 import {TorusKnot} from './pages/Geometries/TorusKnot'
 import {IcoSphere} from './pages/Geometries/IcoSphere'
+
+
+
+import {Material} from './pages/Material/Material'
+
 
 
 
@@ -48,6 +61,10 @@ const BasicRoute = () => (
         	<Route exact path="/Torus" component={Torus} />
         	<Route exact path="/TorusKnot" component={TorusKnot} />
         	<Route exact path="/IcoSphere" component={IcoSphere} />
+
+
+        	<Route exact path="/Material" component={Material} />
+
 
 
 

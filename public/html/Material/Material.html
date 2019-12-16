@@ -14,17 +14,19 @@
 <canvas id="renderCanvas"></canvas>
 <div id="doc">
     <pre>
-        var IcoSphere = BABYLON.MeshBuilder.CreateIcoSphere("IcoSphere",{
-            radius:1,
-            subdivisions:1,
-        }, scene);
-        IcoSphere.position.x = -3;
-        
-        var IcoSphere2 = BABYLON.MeshBuilder.CreateIcoSphere("IcoSphere2",{
-            radius:2,
-            subdivisions:10,
-        }, scene);
-        IcoSphere2.position.x = 3;
+        var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+        light.diffuse = new BABYLON.Color3(1, 0, 0); //添加灯光普通光照颜色红色
+        light.specular = new BABYLON.Color3(0, 1, 0); //创建高光颜色为绿色
+        light.groundColor = new BABYLON.Color3(0, 0, 1); //创建底部照射光为绿色
+
+        scene.ambientColor = new BABYLON.Color3(1, 1, 1);//添加环境光
+
+        myMaterial.diffuseColor = new BABYLON.Color3(1, 0, 0);//材质散射光
+        myMaterial2.specularColor = new BABYLON.Color3(0,0,1);//材质高光
+        myMaterial3.emissiveColor = new BABYLON.Color3(1,0,0);//材质自发光
+
+
+
     </pre>
     <div class="params">
         <div class="title">
@@ -79,6 +81,12 @@ var init = ()=> {
     camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
+    light.diffuse = new BABYLON.Color3(1, 0, 0); //添加灯光普通光照颜色红色
+	light.specular = new BABYLON.Color3(0, 1, 0); //创建高光颜色为绿色
+    light.groundColor = new BABYLON.Color3(0, 0, 1); //创建底部照射光为绿色
+    
+
+    scene.ambientColor = new BABYLON.Color3(1, 1, 1);
     initAxis(3,scene);
     adddemo();
 
@@ -94,17 +102,38 @@ var init = ()=> {
 
 
 var adddemo = ()=>{
-    var IcoSphere = BABYLON.MeshBuilder.CreateIcoSphere("IcoSphere",{
-        radius:1,
-        subdivisions:1,
-    }, scene);
-    IcoSphere.position.x = -3;
+    var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+    var myMaterial2 = new BABYLON.StandardMaterial("myMaterial", scene);
+    var myMaterial3 = new BABYLON.StandardMaterial("myMaterial", scene);
 
-    var IcoSphere2 = BABYLON.MeshBuilder.CreateIcoSphere("IcoSphere2",{
-        radius:2,
-        subdivisions:10,
+
+
+    myMaterial.diffuseColor = new BABYLON.Color3(1, 0, 0);
+    myMaterial2.specularColor = new BABYLON.Color3(0,0,1);
+    myMaterial3.emissiveColor = new BABYLON.Color3(1,0,0);
+    // myMaterial.ambientColor = new BABYLON.Color3(1,0,0);
+
+    var Sphere = BABYLON.MeshBuilder.CreateSphere("Sphere",{
+        sideOrientation:BABYLON.Mesh.DOUBLESIDE,
+        diameter: 2, 
     }, scene);
-    IcoSphere2.position.x = 3;
+    Sphere.material = myMaterial;
+    Sphere.position.x = 3;
+
+    var Sphere2 = BABYLON.MeshBuilder.CreateSphere("Sphere2",{
+        sideOrientation:BABYLON.Mesh.DOUBLESIDE,
+        diameter: 2, 
+    }, scene);
+    Sphere2.material = myMaterial2;
+
+
+    var Sphere3 = BABYLON.MeshBuilder.CreateSphere("Sphere3",{
+        sideOrientation:BABYLON.Mesh.DOUBLESIDE,
+        diameter: 2, 
+    }, scene);
+    Sphere3.material = myMaterial3;
+    Sphere3.position.x = -3;
+
 }
 
 init();
