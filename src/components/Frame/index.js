@@ -118,6 +118,16 @@ export class Frame extends MiddleComponent {
 					}
 				]
 			},
+			{
+				title:'Loader',
+				children:[
+					{
+						title:'SceneLoader',
+						to:'/SceneLoader',
+						desc:'Loader'
+					}
+				]
+			}
 		];
   		this.initHeightLight();
 	}
@@ -154,7 +164,7 @@ export class Frame extends MiddleComponent {
 		var menu = this.menuDom();
 		return withRouter(({history})=>{
 			return (
-				<Menu mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['babylon','Geometries','Material']}>
+				<Menu mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['babylon','Geometries','Material','Loader']}>
 					{ menu }
 				</Menu>
 			)

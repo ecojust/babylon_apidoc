@@ -33,6 +33,10 @@ import {HeightMap} from './pages/Material/HeightMap'
 import {ShaderMaterial} from './pages/Material/ShaderMaterial'
 
 
+import {SceneLoader} from './pages/Loader/SceneLoader'
+
+
+
 
 
 
@@ -76,6 +80,13 @@ const BasicRoute = () => (
         	<Route exact path="/Texture" component={Texture} />
         	<Route exact path="/HeightMap" component={HeightMap} />
         	<Route exact path="/ShaderMaterial" component={ShaderMaterial} />
+
+
+        	<Route exact path="/SceneLoader" component={SceneLoader} />
+
+
+
+			
 
 
 
