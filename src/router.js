@@ -28,6 +28,15 @@ import {IcoSphere} from './pages/Geometries/IcoSphere'
 
 
 import {Material} from './pages/Material/Material'
+import {Texture} from './pages/Material/Texture'
+import {HeightMap} from './pages/Material/HeightMap'
+import {ShaderMaterial} from './pages/Material/ShaderMaterial'
+
+
+
+
+
+
 
 
 
@@ -64,6 +73,13 @@ const BasicRoute = () => (
 
 
         	<Route exact path="/Material" component={Material} />
+        	<Route exact path="/Texture" component={Texture} />
+        	<Route exact path="/HeightMap" component={HeightMap} />
+        	<Route exact path="/ShaderMaterial" component={ShaderMaterial} />
+
+
+
+			
 
 
 

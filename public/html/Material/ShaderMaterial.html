@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/public.css">
+    <script src="../../lib/babylon.js"></script>
+    <script src="../../lib/initAxis.js"></script>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+    <pre>
+            BABYLON.Effect.ShadersStore["customVertexShader"]= `
+                precision highp float;
+                attribute vec3 position;
+                attribute vec2 uv;
+                uniform mat4 worldViewProjection;
+                varying vec2 vUV;
+                void main(void) {
+                    gl_Position = worldViewProjection * vec4(position, 1.0);
+                    vUV = uv;
+                }
+            `;
+            BABYLON.Effect.ShadersStore["customFragmentShader"]= `
+                precision highp float;
+                varying vec2 vUV;
+                uniform sampler2D textureSampler;
+                void main(void) {
+                    gl_FragColor = texture2D(textureSampler, vUV);
+                }
+            `;
+        
+            var shaderMaterial = new BABYLON.ShaderMaterial("shader", scene, {
+                vertex: "custom",
+                fragment: "custom",
+            });
+        
+            var mainTexture = new BABYLON.Texture("../../images/bump.png", scene);
+            shaderMaterial.setTexture("textureSampler", mainTexture);
+        
+            var ground = BABYLON.MeshBuilder.CreateGround("ground",{
+                    height:8,
+                    width:8,
+                    subdivisions:4
+                }, scene);
+            ground.material = shaderMaterial;
+
+    </pre>
+    <div class="params">
+        <div class="title">
+            参数说明(options):
+        </div>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>意义</th>
+                <th>默认值</th>
+            </tr>
+            <!-- <tr>
+                <td>width</td>
+                <td>宽度(number)</td>
+                <td>10</td>
+            </tr> -->
+        </table>
+        <div class="warning">
+            注意事项:
+        </div>
+        <div class="things">
+            <div class="thing">1.Babylon的shader内置变量如下:</div>
+            <div class="thing">&nbsp;&nbsp;uniform:world、view、projection、worldView、worldViewProjection、cameraPosition</div>
+            <div class="thing">&nbsp;&nbsp;attribute:position、normal、uv、uv2</div>
+        </div>
+
+    </div>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+var engine,scene,camera;
+
+var init = ()=> {
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas');
+    // Load the 3D engine
+    engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    camera.lowerRadiusLimit = 10; //限制相机距离焦点最近距离
+    camera.upperRadiusLimit = 50; //限制相机距离焦点最远距离
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 1), scene);
+    light.diffuse = new BABYLON.Color3(222/255,184/255,135/255); //添加灯光普通光照颜色
+	light.specular = new BABYLON.Color3(0, 0.5, 0); //创建高光颜色
+    light.groundColor = new BABYLON.Color3(0, 0, 1); //创建底部照射光
+    
+
+    scene.ambientColor = new BABYLON.Color3(1, 1, 1);
+    initAxis(3,scene);
+    adddemo();
+
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+
+
+var adddemo = ()=>{
+    BABYLON.Effect.ShadersStore["customVertexShader"]= `
+        precision highp float;
+        attribute vec3 position;
+        attribute vec2 uv;
+        uniform mat4 worldViewProjection;
+        varying vec2 vUV;
+        void main(void) {
+            gl_Position = worldViewProjection * vec4(position, 1.0);
+            vUV = uv;
+        }
+    `;
+    BABYLON.Effect.ShadersStore["customFragmentShader"]= `
+        precision highp float;
+        varying vec2 vUV;
+        uniform sampler2D textureSampler;
+        void main(void) {
+            gl_FragColor = texture2D(textureSampler, vUV);
+        }
+    `;
+
+    var shaderMaterial = new BABYLON.ShaderMaterial("shader", scene, {
+        vertex: "custom",
+        fragment: "custom",
+    });
+
+    var mainTexture = new BABYLON.Texture("../../images/bump.png", scene);
+    shaderMaterial.setTexture("textureSampler", mainTexture);
+
+    var ground = BABYLON.MeshBuilder.CreateGround("ground",{
+            height:8,
+            width:8,
+            subdivisions:4
+        }, scene);
+    ground.material = shaderMaterial;
+}
+
+init();
+
+
+
+</script>
+</html>

@@ -102,6 +102,8 @@ var init = ()=> {
     camera.setTarget(BABYLON.Vector3.Zero());
     // Attach the camera to the canvas
     camera.attachControl(canvas, false);
+    camera.lowerRadiusLimit = 10; //限制相机距离焦点最近距离
+    camera.upperRadiusLimit = 50; //限制相机距离焦点最远距离
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
     initAxis(3,scene);

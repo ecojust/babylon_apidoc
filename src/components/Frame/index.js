@@ -97,9 +97,24 @@ export class Frame extends MiddleComponent {
 				title:'Material',
 				children:[
 					{
-						title:'基础材质',
+						title:'Color',
 						to:'/Material',
 						desc:'基础材质'
+					},
+					{
+						title:'Texture',
+						to:'/Texture',
+						desc:'贴图材质'
+					},
+					{
+						title:'HeightMap',
+						to:'/HeightMap',
+						desc:'高度贴图'
+					},
+					{
+						title:'ShaderMaterial',
+						to:'/ShaderMaterial',
+						desc:'着色器'
 					}
 				]
 			},

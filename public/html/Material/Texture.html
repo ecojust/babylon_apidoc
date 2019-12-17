@@ -27,10 +27,11 @@
         var myMaterial3 = new BABYLON.StandardMaterial("myMaterial", scene);
         var myMaterial4 = new BABYLON.StandardMaterial("myMaterial", scene);
 
-        myMaterial1.diffuseColor = new BABYLON.Color3(0,0.5,0);//漫反射
-        myMaterial2.specularColor = new BABYLON.Color3(0,0.5,0);//高光
-        myMaterial3.emissiveColor = new BABYLON.Color3(0,0.5,0);//自发光
-        myMaterial4.ambientColor = new BABYLON.Color3(0,0.5,0);//环境光
+        myMaterial.bumpTexture = new BABYLON.Texture("../../images/bump.png", scene);
+        myMaterial1.diffuseTexture = new BABYLON.Texture("../../images/bump.png", scene);
+        myMaterial2.specularTexture = new BABYLON.Texture("../../images/bump.png", scene);
+        myMaterial3.emissiveTexture = new BABYLON.Texture("../../images/bump.png", scene);
+        myMaterial4.reflectionTexture = new BABYLON.Texture("../../images/bump.png", scene);
 
 
 
@@ -47,23 +48,33 @@
                 <th>默认值</th>
             </tr>
             <tr>
-                <td>diffuseColor</td>
-                <td>漫反射(Color4)</td>
+                <td>diffuseTexture</td>
+                <td>漫反射贴图(Texture)</td>
                 <td>null</td>
             </tr>
             <tr>
-                <td>specularColor</td>
-                <td>高光(Color4)</td>
+                <td>specularTexture</td>
+                <td>高光贴图(Texture)</td>
                 <td>null</td>
             </tr>
             <tr>
-                <td>emissiveColor</td>
-                <td>自发光(Color4)</td>
+                <td>emissiveTexture</td>
+                <td>自发光贴图(Texture)</td>
                 <td>null</td>
             </tr>
             <tr>
-                <td>ambientColor</td>
-                <td>环境光(Color4)</td>
+                <td>ambientTexture</td>
+                <td>环境光贴图(Texture)</td>
+                <td>null</td>
+            </tr>
+            <tr>
+                <td>bumpTexture</td>
+                <td>凹凸贴图(Texture)</td>
+                <td>null</td>
+            </tr>
+            <tr>
+                <td>reflectionTexture</td>
+                <td>反射贴图(Texture)</td>
                 <td>null</td>
             </tr>
         </table>
@@ -127,11 +138,14 @@ var adddemo = ()=>{
     var myMaterial2 = new BABYLON.StandardMaterial("myMaterial", scene);
     var myMaterial3 = new BABYLON.StandardMaterial("myMaterial", scene);
     var myMaterial4 = new BABYLON.StandardMaterial("myMaterial", scene);
+    
+    myMaterial.bumpTexture = new BABYLON.Texture("../../images/bump.png", scene);
+    myMaterial1.diffuseTexture = new BABYLON.Texture("../../images/bump.png", scene);
+    myMaterial2.specularTexture = new BABYLON.Texture("../../images/bump.png", scene);
+    myMaterial3.emissiveTexture = new BABYLON.Texture("../../images/bump.png", scene);
+    myMaterial4.reflectionTexture = new BABYLON.Texture("../../images/bump.png", scene);
 
-    myMaterial1.diffuseColor = new BABYLON.Color3(0,0.5,0);
-    myMaterial2.specularColor = new BABYLON.Color3(0,0.5,0);
-    myMaterial3.emissiveColor = new BABYLON.Color3(0,0.5,0);
-    myMaterial4.ambientColor = new BABYLON.Color3(0,0.5,0);
+    
 
     var Sphere = BABYLON.MeshBuilder.CreateSphere("Sphere",{
         sideOrientation:BABYLON.Mesh.DOUBLESIDE,

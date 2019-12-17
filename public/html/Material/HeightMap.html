@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/public.css">
+    <script src="../../lib/babylon.js"></script>
+    <script src="../../lib/initAxis.js"></script>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+    <pre>
+            var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 1), scene);
+            light.diffuse = new BABYLON.Color3(222/255,184/255,135/255); //添加灯光普通光照颜色
+            light.specular = new BABYLON.Color3(0, 0.5, 0); //创建高光颜色
+            light.groundColor = new BABYLON.Color3(0, 0, 1); //创建底部照射光
+            
+            scene.ambientColor = new BABYLON.Color3(1, 1, 1);
+
+
+            var myMaterial3 = new BABYLON.StandardMaterial("myMaterial", scene);
+            myMaterial3.diffuseColor = new BABYLON.Color3(222/255,184/255,135/255);//漫反射
+            var ground = BABYLON.MeshBuilder.CreateGroundFromHeightMap("ground", "../../images/heightmap.png",{
+                width:10,
+                height:10,
+                subdivisions:250,
+                minHeight:0,
+                maxHeight:0.5,
+                colorFilter:new BABYLON.Color3(222/255,184/255,135/255),
+                alphaFilter:0.5,
+                updatable:false,
+                onReady:(mesh)=>{
+        
+                }
+            },scene);
+            myMaterial3.backFaceCulling = false;
+            myMaterial3.wireframe = true;
+            ground.material = myMaterial3;
+
+    </pre>
+    <div class="params">
+        <div class="title">
+            参数说明(options):
+        </div>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>意义</th>
+                <th>默认值</th>
+            </tr>
+            <tr>
+                <td>width</td>
+                <td>宽度(number)</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>height</td>
+                <td>长度(number)</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>subdivisions</td>
+                <td>细分(number)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>minHeight</td>
+                <td>最小高度(number)</td>
+                <td>0.0</td>
+            </tr>
+            <tr>
+                <td>maxHeight</td>
+                <td>最大高度(number)</td>
+                <td>1.0</td>
+            </tr>
+            <tr>
+                <td>colorFilter</td>
+                <td>颜色过滤(Color3)</td>
+                <td>new Color3(0.3, 0.59, 0.11)</td>
+            </tr>
+            <tr>
+                <td>alphaFilter</td>
+                <td>透明度过滤(number)</td>
+                <td>0.0</td>
+            </tr>
+            <tr>
+                <td>updatable</td>
+                <td>是否可更新(boolean)</td>
+                <td>null</td>
+            </tr>
+            <tr>
+                <td>onReady</td>
+                <td>onReady回调(function)</td>
+                <td>null</td>
+            </tr>
+        </table>
+        <div class="warning">
+            注意事项:
+        </div>
+        <div class="things">
+            <div class="thing">为了让大家感受一下细分值,这里特地设置了材质的线框属性(wireframe)为true,并且背景剔除(backFaceCulling)属性为false</div>
+        </div>
+
+    </div>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+var engine,scene,camera;
+
+var init = ()=> {
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas');
+    // Load the 3D engine
+    engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    camera.lowerRadiusLimit = 2; //限制相机距离焦点最近距离
+    camera.upperRadiusLimit = 50; //限制相机距离焦点最远距离
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 1), scene);
+    light.diffuse = new BABYLON.Color3(222/255,184/255,135/255); //添加灯光普通光照颜色
+	light.specular = new BABYLON.Color3(0, 0.5, 0); //创建高光颜色
+    light.groundColor = new BABYLON.Color3(0, 0, 1); //创建底部照射光
+    
+
+    scene.ambientColor = new BABYLON.Color3(1, 1, 1);
+    initAxis(9,scene);
+    adddemo();
+
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+
+
+var adddemo = ()=>{
+    var myMaterial3 = new BABYLON.StandardMaterial("myMaterial", scene);
+    myMaterial3.diffuseColor = new BABYLON.Color3(222/255,184/255,135/255);//漫反射
+    var ground = BABYLON.MeshBuilder.CreateGroundFromHeightMap("ground", "../../images/heightmap.png",{
+        width:10,
+        height:10,
+        subdivisions:250,
+        minHeight:0,
+        maxHeight:0.5,
+        colorFilter:new BABYLON.Color3(222/255,184/255,135/255),
+        alphaFilter:0.5,
+        updatable:false,
+        onReady:(mesh)=>{
+
+        }
+    },scene);
+    myMaterial3.backFaceCulling = false;
+    myMaterial3.wireframe = true;
+    ground.material = myMaterial3;
+}
+
+init();
+
+
+
+</script>
+</html>
