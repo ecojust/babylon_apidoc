@@ -62,10 +62,10 @@
             var mainTexture = new BABYLON.Texture("../../images/bump.png", scene);
             shaderMaterial.setTexture("textureSampler", mainTexture);
             shaderMaterial.setMatrix3x3("uvTransform",new Float32Array([1,0,0,0,1,0,0,0,1]));
-            var ground = BABYLON.MeshBuilder.CreatePlane("ground",{
+            var Plane = BABYLON.MeshBuilder.CreatePlane("ground",{
                 size:2,
             }, scene);
-            ground.material = shaderMaterial;
+            Plane.material = shaderMaterial;
     </pre>
     <div class="params">
         <div class="title">
@@ -196,10 +196,10 @@ var adddemo = ()=>{
         var mainTexture = new BABYLON.Texture("../../images/bg.jpg", scene);
         shaderMaterial.setTexture("textureSampler", mainTexture);
         shaderMaterial.setMatrix3x3("uvTransform",new Float32Array([1,0,0,0,1,0,0,0,1]));
-        var ground = BABYLON.MeshBuilder.CreatePlane("ground",{
+        var Plane = BABYLON.MeshBuilder.CreatePlane("ground",{
             size:2,
         }, scene);
-        ground.material = shaderMaterial;
+        Plane.material = shaderMaterial;
     }
 }
 
