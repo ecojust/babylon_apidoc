@@ -36,6 +36,9 @@ import {ShaderMaterial} from './pages/Material/ShaderMaterial'
 import {Obj} from './pages/Loader/Obj'
 import {Gltf} from './pages/Loader/Gltf'
 
+import {Background} from './pages/Other/Background'
+
+
 
 const BasicRoute = () => (
 	<HashRouter>
@@ -64,6 +67,10 @@ const BasicRoute = () => (
         	<Route exact path="/Gltf" component={Gltf} />
 
 
+        	<Route exact path="/Background" component={Background} />
+
+
+			
 
         </Switch>
     </HashRouter>

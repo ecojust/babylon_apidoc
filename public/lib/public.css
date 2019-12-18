@@ -49,3 +49,15 @@ body{
     max-width:800px;
     line-height:36px;
 }
+#toggle{
+    position:absolute;
+    right:10px;
+    top:15px;
+    color:white;
+    z-index:999;
+    cursor:pointer;
+    display:inline-block;
+    padding:2px 10px; 
+    border-radius:4px;
+    box-shadow:0 0 5px 5px rgb(50, 125, 224);
+}

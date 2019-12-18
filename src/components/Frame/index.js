@@ -132,6 +132,16 @@ export class Frame extends MiddleComponent {
 						desc:'加载Gltf/Glb模型'
 					}
 				]
+			},
+			{
+				title:'Other',
+				children:[
+					{
+						title:'SkyBox/Background',
+						to:'/Background',
+						desc:'背景/天空盒子'
+					},
+				]
 			}
 		];
   		this.initHeightLight();
@@ -169,7 +179,7 @@ export class Frame extends MiddleComponent {
 		var menu = this.menuDom();
 		return withRouter(({history})=>{
 			return (
-				<Menu mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['babylon','Geometries','Material','Loader']}>
+				<Menu mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['babylon','Geometries','Material','Loader','Other']}>
 					{ menu }
 				</Menu>
 			)
