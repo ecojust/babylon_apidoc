@@ -122,9 +122,9 @@ export class Frame extends MiddleComponent {
 				title:'Loader',
 				children:[
 					{
-						title:'SceneLoader',
-						to:'/SceneLoader',
-						desc:'Loader'
+						title:'Obj',
+						to:'/Obj',
+						desc:'加载Obj模型'
 					}
 				]
 			}

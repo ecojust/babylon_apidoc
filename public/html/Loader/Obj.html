@@ -21,7 +21,31 @@
 <canvas id="renderCanvas"></canvas>
 <div id="doc">
     <pre>
-
+            BABYLON.SceneLoader.AppendAsync("../../model/", "bunny.obj", scene).then(newScene => {
+                var mesh = newScene.meshes[6];
+                var scale = 10.0;
+                mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+                mesh.position.x = 6;
+            })
+            BABYLON.SceneLoader.Append("../../model/", "bunny.obj", scene, newScene => {
+                var mesh = newScene.meshes[7];
+                var scale = 7.5;
+                mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+                mesh.position.x = 2;
+            });
+            BABYLON.SceneLoader.ImportMesh(null, "../../model/", "bunny.obj", scene, function (meshes, particleSystems, skeletons) {
+                var mesh = meshes[0];
+                var scale = 5.0;
+                mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+                mesh.position.x = -2;
+            });
+            BABYLON.SceneLoader.LoadAssetContainer("../../model/", "bunny.obj", scene, container => {
+                var mesh = container.meshes[0];
+                var scale = 2.5;
+                mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+                mesh.position.x = -6;
+                container.addAllToScene();
+            });
     </pre>
     <div class="params">
         <div class="title">
@@ -43,7 +67,7 @@
             注意事项:
         </div>
         <div class="things">
-            <div class="thing">1.Babylon的shader内置变量如下:</div>
+            <div class="thing">1.前两种加载方式,success回调返回的是newScene,这个场景包含所有的meshes,所以要找当前加载的mesh要注意其所在的meshes索引</div>
         </div>
 
     </div>
@@ -53,11 +77,11 @@
 </body>
 <script type="module">
 // import * as BABYLON from '../lib/babylon.js';
-var engine,scene,camera;
+var engine,scene,camera,canvas;
 
 var init = ()=> {
     // Get the canvas DOM element
-    var canvas = document.getElementById('renderCanvas');
+    canvas = document.getElementById('renderCanvas');
     // Load the 3D engine
     engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
     // Create a basic BJS Scene object
@@ -68,7 +92,7 @@ var init = ()=> {
     camera.setTarget(BABYLON.Vector3.Zero());
     // Attach the camera to the canvas
     camera.attachControl(canvas, false);
-    //camera.lowerRadiusLimit = 10; //限制相机距离焦点最近距离
+    camera.lowerRadiusLimit = 10; //限制相机距离焦点最近距离
     camera.upperRadiusLimit = 50; //限制相机距离焦点最远距离
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 1), scene);
@@ -78,7 +102,7 @@ var init = ()=> {
     
 
     scene.ambientColor = new BABYLON.Color3(1, 1, 1);
-    initAxis(3,scene);
+    initAxis(9,scene);
     adddemo();
 
     // run the render loop
@@ -93,10 +117,30 @@ var init = ()=> {
 
 
 var adddemo = ()=>{
-    BABYLON.SceneLoader.Append("../../model/", "bunny.obj", scene, function (scene) {
-        // 模型添加成功后，执行场景对象的一些方法
-        scene.render();
-
+    BABYLON.SceneLoader.AppendAsync("../../model/", "bunny.obj", scene).then(newScene => {
+        var mesh = newScene.meshes[6];
+        var scale = 10.0;
+        mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+        mesh.position.x = 6;
+    })
+    BABYLON.SceneLoader.Append("../../model/", "bunny.obj", scene, newScene => {
+        var mesh = newScene.meshes[7];
+        var scale = 7.5;
+        mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+        mesh.position.x = 2;
+    });
+    BABYLON.SceneLoader.ImportMesh(null, "../../model/", "bunny.obj", scene, function (meshes, particleSystems, skeletons) {
+        var mesh = meshes[0];
+        var scale = 5.0;
+        mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+        mesh.position.x = -2;
+    });
+    BABYLON.SceneLoader.LoadAssetContainer("../../model/", "bunny.obj", scene, container => {
+        var mesh = container.meshes[0];
+        var scale = 2.5;
+        mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+        mesh.position.x = -6;
+        container.addAllToScene();
     });
 }
 
