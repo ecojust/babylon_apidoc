@@ -125,6 +125,11 @@ export class Frame extends MiddleComponent {
 						title:'Obj',
 						to:'/Obj',
 						desc:'加载Obj模型'
+					},
+					{
+						title:'Gltf',
+						to:'/Gltf',
+						desc:'加载Gltf/Glb模型'
 					}
 				]
 			}

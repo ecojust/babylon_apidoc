@@ -34,29 +34,7 @@ import {ShaderMaterial} from './pages/Material/ShaderMaterial'
 
 
 import {Obj} from './pages/Loader/Obj'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import {Gltf} from './pages/Loader/Gltf'
 
 
 const BasicRoute = () => (
@@ -83,22 +61,7 @@ const BasicRoute = () => (
 
 
         	<Route exact path="/Obj" component={Obj} />
-
-
-
-			
-
-
-
-			
-
-
-
-
-
-
-
-
+        	<Route exact path="/Gltf" component={Gltf} />
 
 
 

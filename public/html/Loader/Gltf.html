@@ -1,0 +1,142 @@
+<!--
+ * @Author: 桔子桑
+ * @Date: 2019-12-17 18:37:45
+ * @FilePath: /babylon_apidoc/public/html/Loader/SceneLoader.html
+ * @Description: 
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/public.css">
+    <script src="../../lib/babylon.js"></script>
+    <script src="../../lib/loaders.min.js"></script>
+    <script src="../../lib/initAxis.js"></script>
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+<div id="doc">
+    <pre>
+            BABYLON.GLTFFileLoader.IncrementalLoading = false;//禁用增量加载
+            BABYLON.GLTFFileLoader.HomogeneousCoordinates = true;//使用均质坐标，某些转换器和导出器可用
+            engine.displayLoadingUI();//开启loading
+            BABYLON.SceneLoader.LoadAssetContainer("../../model/", "Alien.glb", scene, container => {
+                var mesh = container.meshes[0];
+                var scale = 5;
+                mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+                mesh.position = new BABYLON.Vector3(5,3,0);
+                mesh.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+                container.addAllToScene();
+                engine.hideLoadingUI();//关闭loading
+            });
+            BABYLON.SceneLoader.ImportMesh(null, "../../model/", "4scar.gltf", scene, function (meshes, particleSystems, skeletons) {
+                var mesh = meshes[0];
+                var scale = 0.0003;
+                mesh.rotation = new BABYLON.Vector3(0, Math.PI * 2, 0);
+                mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+                mesh.position.x = -4;
+            });
+    </pre>
+    <div class="params">
+        <div class="title">
+            参数说明(options):
+        </div>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>意义</th>
+                <th>默认值</th>
+            </tr>
+            <!-- <tr>
+                <td>width</td>
+                <td>宽度(number)</td>
+                <td>10</td>
+            </tr> -->
+        </table>
+        <div class="warning">
+            注意事项:
+        </div>
+        <div class="things">
+            <div class="thing">1.禁用增量加载，这会延迟加载程序调用成功回调的时间，直到加载网格物体和着色器为止。纹理始终异步加载。禁用增量加载时，成功回调可以计算已加载网格的边界信息。默认为true。</div>
+            <div class="thing">2.使用均质坐标，某些转换器和导出器可用。默认为false。</div>
+
+        </div>
+
+    </div>
+</div>
+        
+    
+</body>
+<script type="module">
+// import * as BABYLON from '../lib/babylon.js';
+var engine,scene,camera,canvas;
+
+var init = ()=> {
+    // Get the canvas DOM element
+    canvas = document.getElementById('renderCanvas');
+    // Load the 3D engine
+    engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
+    // Create a basic BJS Scene object
+    scene = new BABYLON.Scene(engine);
+    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
+    camera = new BABYLON.ArcRotateCamera("Camera", 1,1,12, BABYLON.Vector3.Zero(), scene);
+    // Target the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    // Attach the camera to the canvas
+    camera.attachControl(canvas, false);
+    camera.lowerRadiusLimit = 10; //限制相机距离焦点最近距离
+    camera.upperRadiusLimit = 100; //限制相机距离焦点最远距离
+    // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
+    var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 1), scene);
+    // light.diffuse = new BABYLON.Color3(222/255,184/255,135/255); //添加灯光普通光照颜色
+	// light.specular = new BABYLON.Color3(0, 0.5, 0); //创建高光颜色
+    // light.groundColor = new BABYLON.Color3(0, 0, 1); //创建底部照射光
+    
+
+    scene.ambientColor = new BABYLON.Color3(1, 1, 1);
+    initAxis(9,scene);
+    adddemo();
+
+    // run the render loop
+    engine.runRenderLoop(function(){
+        scene.render();
+    });
+    // the canvas/window resize event handler
+    window.addEventListener('resize', function(){
+        engine.resize();
+    });
+}
+
+
+var adddemo = ()=>{
+    BABYLON.GLTFFileLoader.IncrementalLoading = false;//禁用增量加载
+    BABYLON.GLTFFileLoader.HomogeneousCoordinates = true;//使用均质坐标，某些转换器和导出器可用
+    engine.displayLoadingUI();
+    BABYLON.SceneLoader.LoadAssetContainer("../../model/", "Alien.glb", scene, container => {
+        var mesh = container.meshes[0];
+        var scale = 5;
+        mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+        mesh.position = new BABYLON.Vector3(5,3,0);
+        mesh.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+        container.addAllToScene();
+        engine.hideLoadingUI();
+    });
+    BABYLON.SceneLoader.ImportMesh(null, "../../model/", "4scar.gltf", scene, function (meshes, particleSystems, skeletons) {
+        var mesh = meshes[0];
+        var scale = 0.0003;
+        mesh.rotation = new BABYLON.Vector3(0, Math.PI * 2, 0);
+        mesh.scaling = new BABYLON.Vector3(scale,scale,scale);
+        mesh.position.x = -4;
+    });
+}
+
+init();
+
+
+
+</script>
+</html>
