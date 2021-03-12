@@ -43,7 +43,7 @@
     "react": "^16.8.6",
     "react-app-polyfill": "^0.2.2",
     "react-custom-scrollbars": "^4.2.1",
-    "react-dev-utils": "^8.0.0",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.0",
     "react-scroll": "^1.7.11",
